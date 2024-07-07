@@ -77,10 +77,10 @@ int main() {
 
     if (userList.validateLogin(inputUsername, inputPassword)) {
         cout << "Login successful!" << endl;
-        if (inputUsername == "admin") {
-            cout << "Welcome, Admin!" << endl;
-        }
-    } else {
+    } else if (userList.validateLogin(inputUsername, inputPassword) && inputUsername == "admin") {
+        cout << "Welcome, Admin!" << endl;
+    } 
+    else {
         cout << "Invalid username or password!" << endl;
     }
 
