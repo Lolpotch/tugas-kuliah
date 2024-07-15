@@ -3,85 +3,82 @@
 
 using namespace std;
 
-struct Node {
-    string username;
-    string hashedPassword;
-    Node* next;
-    Node* prev;
-};
-
-class UsersLinkedList {
-private:
-    Node* head;
-    Node* tail;
-
-    string hashPassword(const string& password) {
-        // Simple hash function for demonstration (e.g., sum of ASCII values)
-        unsigned long hash = 0;
-        for (char ch : password) {
-            hash = hash * 31 + ch; // 31 is a small prime number commonly used in hash functions
-        }
-        return to_string(hash);
-    }
-
-public:
-    UsersLinkedList() {
-        head = nullptr;
-        tail = nullptr;
-    }
-
-    void addNode(const string& username, const string& password) {
-        string hashedPassword = hashPassword(password);
-
-        Node* newNode = new Node();
-        newNode->username = username;
-        newNode->hashedPassword = hashedPassword;
-        newNode->next = nullptr;
-        newNode->prev = tail;
-
-        if (tail) {
-            tail->next = newNode;
-        } else {
-            head = newNode;
-        }
-        tail = newNode;
-    }
-
-    bool validateLogin(const string& username, const string& password) {
-        string hashedPassword = hashPassword(password);
-
-        Node* current = head;
-        while (current) {
-            if (current->username == username && current->hashedPassword == hashedPassword) {
-                return true;
-            }
-            current = current->next;
-        }
-        return false;
-    }
-};
-
 int main() {
-    UsersLinkedList userList;
-    userList.addNode("user123", "pass123");
-    userList.addNode("user456", "pass456");
-    userList.addNode("admin", "admin123"); 
+    const int MAX_USERS = 100;
+    string users[MAX_USERS][2] = { {"admin", "password"}, {"user1", "pass1"}, {"user2", "pass2"}, {"user3", "pass3"} };
+    int userCount = 4; // to keep track of the number of users
+    string choice;
+    string username, password;
 
-    string inputUsername, inputPassword;
+    cout << "Welcome to OL Shop!" << endl;
 
-    cout << "Enter username: ";
-    cin >> inputUsername;
+    while (true) {
+        cout << "\nChoose an option:\n1. Signup\n2. Login\n3. Exit\n> ";
+        cin.clear();
+        cin >> choice;
 
-    cout << "Enter password: ";
-    cin >> inputPassword;
+        if (choice == "1") {
+            if (userCount >= MAX_USERS) {
+                cout << "User limit reached. Cannot sign up more users.\n";
+                continue;
+            }
 
-    if (userList.validateLogin(inputUsername, inputPassword)) {
-        cout << "Login successful!" << endl;
-    } else if (userList.validateLogin(inputUsername, inputPassword) && inputUsername == "admin") {
-        cout << "Welcome, Admin!" << endl;
-    } 
-    else {
-        cout << "Invalid username or password!" << endl;
+            cout << "Enter username: ";
+            cin >> username;
+            cout << "Enter password: ";
+            cin >> password;
+
+            if (username == "admin") {
+                cout << "You are just a buyer here.\n";
+                continue;
+            }
+
+            // Check if username already exists
+            bool userExists = false;
+            for (int i = 0; i < userCount; ++i) {
+                if (users[i][0] == username) {
+                    userExists = true;
+                    break;
+                }
+            }
+
+            if (!userExists) {
+                users[userCount][0] = username;
+                users[userCount][1] = password;
+                userCount++;
+                cout << "Signup successful!\n";
+            } else {
+                cout << "Username already exists. Please try a different username.\n";
+            }
+        } else if (choice == "2") {
+            cout << "Enter username: ";
+            cin >> username;
+            cout << "Enter password: ";
+            cin >> password;
+
+            // Check the username and password in the array
+            bool loginSuccessful = false;
+            for (int i = 0; i < userCount; ++i) {
+                if (users[i][0] == username && users[i][1] == password) {
+                    loginSuccessful = true;
+                    break;
+                }
+            }
+
+
+            if (loginSuccessful && username == "admin") {
+                cout << "Welcome admin!\n";
+            }
+            else if (loginSuccessful) {
+                cout << "Login successful!\n";
+            } else {
+                cout << "Invalid username or password. Please try again.\n";
+            }
+        } else if (choice == "3") {
+            break;
+        } else {
+            cout << "Invalid option. Please try again.\n";
+        }
     }
 
     return 0;
