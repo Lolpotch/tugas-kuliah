@@ -68,9 +68,11 @@ int main() {
 
             if (loginSuccessful && username == "admin") {
                 cout << "Welcome admin!\n";
+                // INFO: DISINI MASUK LOGIN SEBAGAI ADMIN
             }
             else if (loginSuccessful) {
                 cout << "Login successful!\n";
+                // INFO: DISINI MASUK LOGIN SEBAGAI PEMBELI
             } else {
                 cout << "Invalid username or password. Please try again.\n";
             }
