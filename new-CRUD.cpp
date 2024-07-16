@@ -6,7 +6,7 @@ struct Item {
     int id;
     string name;
     int quantity;
-    double price;
+    int price;
     Item* next;
 };
 
@@ -38,7 +38,7 @@ public:
         addItem("Printer", 15, 120000);
     }
 
-    void addItem(string name, int quantity, double price) {
+    void addItem(string name, int quantity, int price) {
         Item* newItem = new Item;
         newItem->id = nextId++;
         newItem->name = name;
