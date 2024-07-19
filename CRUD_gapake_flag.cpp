@@ -278,6 +278,7 @@ void UserMenu(Inventory& inventory) {
     int quantity;
 
     while (true) {
+        inventory.displayInventory();
         cout << "\n\nChoose an option:\n1. Add Item to Cart\n2. Remove Last Item from Cart\n3. Display Cart\n4. Checkout\n5. Exit\n> ";
         cin >> choice;
 
