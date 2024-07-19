@@ -201,6 +201,21 @@ public:
         cout << "Checkout successful. Thank you for your purchase!" << endl;
     }
 
+    void changeItem(int id, string newName, int newQuantity, int newPrice) {
+    Item* current = head;
+    while (current != nullptr && current->id != id) {
+        current = current->next;
+    }
+    if (current == nullptr) {
+        cout << "Item not found." << endl;
+        return;
+    }
+    current->name = newName;
+    current->quantity = newQuantity;
+    current->price = newPrice;
+    cout << "Item details updated successfully." << endl;
+}
+
     void clearInventory() {
         while (head != nullptr) {
             Item* temp = head;
@@ -219,7 +234,7 @@ void AdminMenu(Inventory& inventory) {
     int id;
 
     while (true) {
-        cout << "\nChoose an option:\n1. Add Item\n2. Remove Item\n3. Display Inventory\n4. Clear Inventory\n5. Exit\n> ";
+        cout << "\nChoose an option:\n1. Add Item\n2. Remove Item\n3. Display Inventory\n4. Change Item\n5. Clear Inventory\n6. Exit\n> ";
         cin.clear();
         cin >> choice;
 
@@ -238,8 +253,18 @@ void AdminMenu(Inventory& inventory) {
         } else if (choice == 3) {
             inventory.displayInventory();
         } else if (choice == 4) {
-            inventory.clearInventory();
+            cout << "Enter item ID to change: ";
+            cin >> id;
+            cout << "Enter new item name: ";
+            cin >> name;
+            cout << "Enter new item quantity: ";
+            cin >> quantity;
+            cout << "Enter new item price: ";
+            cin >> price;
+            inventory.changeItem(id, name, quantity, price);
         } else if (choice == 5) {
+            inventory.clearInventory();
+        } else if (choice == 6) {
             return;
         } else {
             cout << "Invalid choice. Please try again." << endl;
