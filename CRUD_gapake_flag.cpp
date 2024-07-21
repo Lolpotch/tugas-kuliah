@@ -2,6 +2,7 @@
 #include <string>
 #include <stack>
 #include <cstdlib>
+#include <random> // Untuk menghasilkan angka random
 
 using namespace std;
 
@@ -177,6 +178,9 @@ public:
 
         cout << "Total payment: Rp " << totalHarga << ". Checking out..." << endl;
 
+        // Generate random payment code
+        string paymentCode = generatePaymentCode();
+
         int paymentMethod;
         cout << "Choose a payment method:\n1. Bank Transfer\n2. Credit Card\n> ";
         cin >> paymentMethod;
@@ -184,35 +188,37 @@ public:
         switch (paymentMethod) {
             case 1:
                 cout << "You have selected Bank Transfer. Please transfer the amount to the provided bank account." << endl;
+                cout << "Your payment code is: " << paymentCode << endl;
                 break;
             case 2:
                 cout << "You have selected Credit Card. Please enter your card details." << endl;
+                cout << "Your payment code is: " << paymentCode << endl;
                 break;
             default:
-                cout << "Invalid payment method. Defaulting to Cash." << endl;
+                cout << "Invalid payment method." << endl;
                 break;
         }
         while (!cart.empty()) {
             cart.pop();
         }
 
-        cout << "Checkout successful. Thank you for your purchase!" << endl;
+        cout << "Checkout successful. Thank you for your purchase!\n" << endl;
     }
 
     void changeItem(int id, string newName, int newQuantity, int newPrice) {
-    Item* current = head;
-    while (current != nullptr && current->id != id) {
-        current = current->next;
+        Item* current = head;
+        while (current != nullptr && current->id != id) {
+            current = current->next;
+        }
+        if (current == nullptr) {
+            cout << "Item not found." << endl;
+            return;
+        }
+        current->name = newName;
+        current->quantity = newQuantity;
+        current->price = newPrice;
+        cout << "Item details updated successfully." << endl;
     }
-    if (current == nullptr) {
-        cout << "Item not found." << endl;
-        return;
-    }
-    current->name = newName;
-    current->quantity = newQuantity;
-    current->price = newPrice;
-    cout << "Item details updated successfully." << endl;
-}
 
     void clearInventory() {
         while (head != nullptr) {
@@ -221,6 +227,17 @@ public:
             delete temp;
         }
         cout << "Inventory cleared." << endl;
+    }
+
+private:
+    string generatePaymentCode() {
+        // Initialize random number generator
+        random_device rd;
+        mt19937 gen(rd());
+        uniform_int_distribution<> dis(10000000, 99999999); // Generate 6-digit number
+
+        int randomCode = dis(gen);
+        return to_string(randomCode);
     }
 };
 
