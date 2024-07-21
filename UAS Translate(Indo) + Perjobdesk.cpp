@@ -299,7 +299,7 @@ void UserMenu(Inventory& inventory) {
 
     while (true) {
         inventory.displayInventory();
-        cout << "\n\nPilih:\n1. Tambahkan Barang ke Keranjang\n2. Hapus barang terakhir dari keranjang\n3. Tampilkan keranjang\n4. Checkout\n5. Keluar\n> ";
+        cout << "\n\nPilih:\n1. Tambahkan Barang ke keranjang\n2. Hapus barang terakhir dari keranjang\n3. Tampilkan keranjang\n4. Checkout\n5. Keluar\n> ";
         cin >> choice;
 
         if (choice == 1) {
