@@ -114,7 +114,7 @@ public:
         newCartItem.quantity = quantity;
         newCartItem.price = current->price;
         cart.push(newCartItem);
-        cout << "Item added to cart successfully." << endl;
+        cout << "Item added to cart successfully.\n" << endl;
     }
 
     void removeItemFromCart() {
@@ -157,7 +157,7 @@ public:
                  << ", Price: Rp " << current.price 
                  << ", Subtotal: Rp " << subtotal << endl;
         }
-        cout << "Total Harga: Rp " << totalHarga << "\n\n";
+        cout << "\nTotal Harga: Rp " << totalHarga << endl << endl;
     }
 
     void checkout() {
@@ -178,18 +178,15 @@ public:
         cout << "Total payment: Rp " << totalHarga << ". Checking out..." << endl;
 
         int paymentMethod;
-        cout << "Choose a payment method:\n1. Cash\n2. Credit Card\n3. Bank Transfer\n> ";
+        cout << "Choose a payment method:\n1. Bank Transfer\n2. Credit Card\n> ";
         cin >> paymentMethod;
 
         switch (paymentMethod) {
             case 1:
-                cout << "You have selected Cash. Please prepare the exact amount." << endl;
+                cout << "You have selected Bank Transfer. Please transfer the amount to the provided bank account." << endl;
                 break;
             case 2:
                 cout << "You have selected Credit Card. Please enter your card details." << endl;
-                break;
-            case 3:
-                cout << "You have selected Bank Transfer. Please transfer the amount to the provided bank account." << endl;
                 break;
             default:
                 cout << "Invalid payment method. Defaulting to Cash." << endl;
@@ -284,7 +281,7 @@ void UserMenu(Inventory& inventory) {
         cin >> choice;
 
         if (choice == 1) {
-            inventory.displayInventory();
+            // inventory.displayInventory();
             cout << "Enter the ID of the item you want to add to the cart: ";
             cin >> id;
             cout << "Enter the quantity of the item you want to buy: ";
@@ -312,7 +309,6 @@ int main() {
     string choice;
     string username, password;
     Inventory inventory;
-
     system("cls");
     cout << "Welcome to OL Shop!" << endl;
 
@@ -371,7 +367,7 @@ int main() {
                 cout << "Welcome admin!\n";
                 AdminMenu(inventory);
             } else if (loginSuccessful) {
-                cout << "Login successful!\n";
+                cout << "Login successful!\n\n";
                 UserMenu(inventory);
             } else {
                 cout << "Invalid username or password. Please try again.\n";
