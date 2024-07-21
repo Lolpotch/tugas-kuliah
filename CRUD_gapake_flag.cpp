@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <stack>
+#include <cstdlib>
 
 using namespace std;
 
@@ -113,7 +114,7 @@ public:
         newCartItem.quantity = quantity;
         newCartItem.price = current->price;
         cart.push(newCartItem);
-        cout << "Item added to cart successfully.\n" << endl;
+        cout << "Item added to cart successfully." << endl;
     }
 
     void removeItemFromCart() {
@@ -156,7 +157,7 @@ public:
                  << ", Price: Rp " << current.price 
                  << ", Subtotal: Rp " << subtotal << endl;
         }
-        cout << "\nTotal Harga: Rp " << totalHarga << endl << endl;
+        cout << "Total Harga: Rp " << totalHarga << "\n\n";
     }
 
     void checkout() {
@@ -283,7 +284,7 @@ void UserMenu(Inventory& inventory) {
         cin >> choice;
 
         if (choice == 1) {
-            // inventory.displayInventory();
+            inventory.displayInventory();
             cout << "Enter the ID of the item you want to add to the cart: ";
             cin >> id;
             cout << "Enter the quantity of the item you want to buy: ";
@@ -312,6 +313,7 @@ int main() {
     string username, password;
     Inventory inventory;
 
+    system("cls");
     cout << "Welcome to OL Shop!" << endl;
 
     while (true) {
@@ -369,7 +371,7 @@ int main() {
                 cout << "Welcome admin!\n";
                 AdminMenu(inventory);
             } else if (loginSuccessful) {
-                cout << "Login successful!\n\n";
+                cout << "Login successful!\n";
                 UserMenu(inventory);
             } else {
                 cout << "Invalid username or password. Please try again.\n";
